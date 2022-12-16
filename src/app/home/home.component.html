@@ -1,0 +1,160 @@
+<div class="content">
+
+  <div class="row g-0">
+    <div class="col-9">
+      <div class="titulo1" >
+        <h2 class="h2">PAINEL DE INTERCORRÊNCIA | Chamados de {{ menorData | date: 'EEEE' }} <span *ngIf="!datasIguais">à
+          {{ maiorData | date: 'EEEE' }}</span></h2>
+      </div>
+    </div>
+    <div class="col-3" >
+      <div class="titulo-atualizacao"  style="color: #fff;">
+        <h2 class="h3"> Última Intercorrência: {{ maiorData | date: 'dd/MM/yy' }} </h2>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+  <div class="row" style="height: 40vh;">
+    <div class="card-group">
+      <div class="col-5">
+        <div class="card">
+          <div class="card-header">
+            Chamados em aberto
+          </div>
+          <div [ngClass]="quantidadeDeChamadosAbertosNumbero > 0 ? 'card-quantidade-chamados-amarelo' : 'card-quantidade-chamados-verde'" >
+            <div class="chamados-abertos">
+              {{quantidadeDeChamadosAbertosNumbero}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="col-7">
+        <div class="card" style="height: 502px;">
+          <div class="card-header">
+            Últimas Intercorrências
+          </div>
+          <div class="card-body" style="margin-top: -3%;">
+            <table mat-table [dataSource]="dadosDaTabelaUltimasIntercorrencias" class="mat-elevation-z0"
+              style="width: 100%; background-color: transparent; font-weight: 580; ">
+
+              <ng-container matColumnDef="nome_paciente">
+                <th mat-header-cell *matHeaderCellDef> Nome do Paciente </th>
+                <td mat-cell *matCellDef="let element"> {{element.nome_paciente}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="data_inicio">
+                <th mat-header-cell *matHeaderCellDef> Data Início </th>
+                <td mat-cell *matCellDef="let element"> {{element.data_inicio | date:'dd/MM/yyyy'}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="horario">
+                <th mat-header-cell *matHeaderCellDef> Horário </th>
+                <td mat-cell *matCellDef="let element"> {{element.data_inicio | date: 'shortTime'}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="grau_de_urgencia">
+                <th mat-header-cell *matHeaderCellDef> Grau de Urgência </th>
+                <td mat-cell *matCellDef="let element"> {{element.grau_de_urgencia}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="classificacao">
+                <th mat-header-cell *matHeaderCellDef> Classificação </th>
+                <td mat-cell *matCellDef="let element"> {{element.classificacao}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="colunasTabelaUltimasIntercorrencias"></tr>
+              <tr mat-row *matRowDef="let row; columns: colunasTabelaUltimasIntercorrencias;"
+                [ngClass]="{'make-gold': row.status === 'Aberta', 'vermelho':row.grau_de_urgencia ==='Emergência'}">
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="titulo2" style="text-align: center !important;">
+    <span class="navbar-brand mb-0 h1">
+      {{ menorData | date: 'dd/MM/yyyy'}} à {{ maiorData | date: 'dd/MM/yyyy'}}
+    </span>
+  </div>
+
+  <div class="row">
+    <div class="card-group">
+      <div class="col-4">
+        <div class="card" style="height: 48vh;">
+          <div class="card-body">
+            <table mat-table [dataSource]="dadosDaTabelaQuantidadeChamados" class="mat-elevation-z0"
+              style="width: 100%;  font-weight: 580;">
+
+              <ng-container matColumnDef="nome_paciente">
+                <th mat-header-cell *matHeaderCellDef> Nome do Paciente </th>
+                <td mat-cell *matCellDef="let element"> {{element.nome_paciente}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="quantidade">
+                <th mat-header-cell *matHeaderCellDef> Quantidade de chamados </th>
+                <td mat-cell *matCellDef="let element"
+                  [ngClass]="{'verde': element.quantidade < 2 ,'amarelo': element.quantidade == 2, 'vermelho': element.quantidade > 2 }">
+                  {{element.quantidade}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="colunasTabelaQuantidadeChamados"></tr>
+              <tr mat-row *matRowDef="let row; columns: colunasTabelaQuantidadeChamados;"></tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-4">
+        <div class="card" style="height: 48vh;">
+          <div class="card-body">
+            <br /> <br />
+            <div style="display: block; width: 100%; height: 100%;" *ngIf="chartBarraReady">
+              <canvas baseChart height="50vh" width="80vw" [datasets]="barChartData2" [labels]="barChartLabels"
+                [options]="barChartOptions" [legend]="barChartLegend" [plugins]="barChartPlugins"
+                [colors]="barChartColors" chartType='horizontalBar'>
+              </canvas>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="card" style="height: 48vh;">
+
+          <div class="card-body">
+
+            <div style="display: block;" *ngIf="chartReady">
+              <canvas baseChart height="130vh" [data]="doughnutChartQuantidade" [labels]="doughnutChartLabels"
+                [options]="doughnutChartOptions" [legend]="doughnutChartLegend" chartType='doughnut'
+                [colors]="pieChartColors" [plugins]="barChartPlugins">
+              </canvas>
+            </div>
+            <hr>
+            <div style="display: block;" *ngIf="chartTempoReady">
+              <canvas baseChart height="90vh" [datasets]="barChartTempoData2" [labels]="barChartTempoLabels"
+                [options]="barChartTempoOptions" chartType='horizontalBar' [colors]="barTempoChartColors"
+                [plugins]="barChartPlugins">
+              </canvas>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

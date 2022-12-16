@@ -1,0 +1,117 @@
+.card-header{
+  text-align: center !important;
+}
+
+.html, body{
+  overflow-x: hidden;
+}
+
+.content{
+  width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center !important;
+}
+
+.h2{
+  color: #ffffff !important;
+  padding-left: 45px;
+  font-size: 30px;
+}
+
+.h3{
+  color: #ffffff !important;
+  font-size: 25px;
+}
+
+
+.titulo2{
+  color: #336FA1;
+  height: 50px;
+  padding-top: 10px;
+}
+
+.titulo1{
+  height: 60px;
+  padding-top: 10px;
+  background-color: #336FA1; color: #fff;
+  text-align: start;
+}
+
+.titulo-atualizacao{
+  height: 60px;
+  padding-top: 10px;
+  background-color: #336FA1; color: #fff;
+}
+
+.card, .card-header{
+  border-radius: 1px 0 0 1px;
+}
+
+.card-header{
+  font-size: 25px;
+}
+
+.mat-header-cell{
+  text-align: center;
+  background-color: transparent !important;
+}
+
+.mat-row{
+   height: 35px !important;
+   font-size: 38px !important;
+   font-weight: 700px !important;
+   background-color: transparent !important;
+}
+
+.chamados-abertos{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 20vh;
+  font-size:  95px;
+  padding-top: 121px;
+}
+
+.make-gold {
+  background-color: gold !important
+}
+
+.verde {
+  background-color: #8CC152 !important
+}
+.amarelo {
+  background-color: #ffce54 !important
+}
+.vermelho {
+  background-color: #fc6e51 !important
+}
+
+.mat-column-quantidade {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 20% !important;
+  width: 20% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  text-align: center !important;
+}
+
+.card-quantidade-chamados-amarelo{
+  height: 502px;
+  background-color: gold !important;
+}
+
+.card-quantidade-chamados-verde{
+  height: 502px;
+  background-color: #62962A !important;
+}
